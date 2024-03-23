@@ -188,7 +188,7 @@
             <strong>PT-Former</strong> innovatively addresses the challenge of fusing embeddings from different modalities—specifically, patches and texts—by introducing an architecture that aligns and concatenates embedding spaces to enhance the interpretability and effectiveness of classification models. Leveraging self-attention mechanisms, PT-Former updates individual embeddings, ensuring that the information carried by each is rich and contextually relevant. The cross-attention module further aligns the embeddings of code changes with their textual explanations, creating a nuanced understanding of the interaction between these two modalities. Finally, by employing feed-forward layers for non-linear transformation and concatenating the aligned embeddings, <strong>PT-Former</strong> achieves a comprehensive representation of the input data. This methodical approach not only bridges the gap between distinct feature spaces but also optimizes the process of embedding fusion, thereby enabling more accurate and insightful classification outcomes.
           </p>
         <div class="content has-text-centered">
-          <img src="static/images/ptformer.jpg" alt="algebraic reasoning" class="center" style="width: 40%; height: auto;">
+          <img src="static/images/ptformer.jpg" alt="algebraic reasoning" class="center" style="width: 60%; height: auto;">
           <p>
           </p>
         </div>
@@ -198,7 +198,7 @@
             <strong>SBCL</strong>, standing for Stochastic Batch Contrastive Learning, serves as a sophisticated mechanism for refining the classification capabilities of a binary classifier tasked with distinguishing security patches from non-security patches. This mechanism operates on the premise of enhancing the classifier's ability to discern intrinsic patterns within a dataset, relying on embeddings output by PT-Former that encapsulate security patch characteristics along with their LLM-generated explanations, developer descriptions, and labelled instructions. <strong>SBCL</strong> innovatively utilizes batch sampling and triplet formation techniques to emphasize learning from both closely related security examples (positive pairs) and distinguishably different non-security examples (negative pairs), thereby optimizing the model's embedding space for precise security relevance prediction. Through the application of a stochastic batch contrastive loss, <strong>SBCL</strong> meticulously adjusts the embedding distances within each batch to ensure a clear demarcation between security-related and non-security-related examples. This strategic approach significantly bolsters the model's performance by fostering an embedding space that is both robust and discriminative, thereby setting a new standard for the identification of security patches.
           </p>
         <div class="content has-text-centered">
-          <img src="static/images/sbcl.jpg" alt="algebraic reasoning" class="center" style="width: 70%; height: auto;">
+          <img src="static/images/sbcl.jpg" alt="algebraic reasoning" class="center" style="width: 90%; height: auto;">
           <p>
           </p>
         </div>
@@ -236,10 +236,22 @@
       <div class="column is-four-fifths">
 
 
-        <h2 class="title is-3">Experimental Results</h2>
+        <h2 class="title is-3">Experimental Design</h2>
         <div class="content has-text-justified">
+		  <p><strong>Research Questions</strong></p>
           <p>
-            GPT-4V exhibits promising capabilities, ranging from speculative planning, webpage content reasoning, and error correction to surpassing the limitations of superficial textual similarity matching inherent in fine-tuned, text-only models.
+            <li><strong>RQ1.</strong> How effective is LLMDA in identifying security patches? We assess LLMDA against well-known literature benchmarks and compare the achieved performance against some strong baselines.</li>
+			<li><strong>RQ2.</strong> How do key design decisions in LLMDA contribute to its performance? We perform an ablation study where we investigate the added value of label-wise training, the generated explanations, PT-Former and contrastive learning.  </li>
+			<li><strong>RQ3.</strong> To what extent the distribution of patch representations in LLMDA improves over the state of the art? We visualize the learned representations from LLMDA and GraphSPD to observe the differences in their potential discriminative power. Based on case studies, we also qualitatively assess how LLMDA representation assigns scores to key tokens.  </li>
+			<li><strong>RQ4.</strong> Does the trained LLMDA model generalize beyond our study dataset? We evaluate the robustness of LLMDA by applying the model trained on a given dataset to samples from a different dataset.  </li>
+          </p>
+			
+		<p><strong>Dataset</strong></p>
+          <p>
+            <li><strong>PatchDB</strong> is an extensive set of patches of C/C++ programs. It includes about 12K security-relevant and about 24K non-security-relevant patches. The dataset was constructed by considering patches referenced in the National Vulnerability Database (NVD) as well as patches extracted from GitHub commits of 311 open-source projects (e.g., Linux kernel, MySQL, OpenSSL, etc.). </li>
+			  <img src="static/images/data.jpg" alt="algebraic reasoning" class="center" style="width: 70%; height: auto;">
+			  
+			<li><strong>SPI-DB</strong> is another large dataset for security patch identification. The public version includes patches from FFmpeg and QEMU, amounting to about 25k patches (10k security-relevant and 15k non-security-relevant).    </li>
           </p>
 
           <div id="results-carousel" class="carousel results-carousel">
@@ -253,13 +265,68 @@
           </div>
         </div>
       </div>
-        </div>
+    </div>
         </div>
 
     </div>
   </div>
 </section>
 
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Main Experimental Results</h2>
+        <div class="content has-text-justified">
+          <div id="results-carousel" class="carousel results-carousel">
+			<p>A. Overall Performance</p>
+            <div class="box m-5">
+            	<div class="content has-text-centered">
+              		<img src="static/images/table1.jpg" alt="algebraic reasoning" width="60%"/>
+              		<p> <strong>LLMDA</strong> is effective in detecting security patches.With an F1 score at 78.19%, LLMDA demonstrates a well-balanced performance: our model can concurrently attain high precision and high recall. Specifically, we achieved a new state-of-the-art performance in identifying both security patches (+Recall) and recognizing non-security patches (-Recall). Comparison experiments further confirm that <strong>LLMDA</strong> is superior to the baselines and is consistently high-performing across the datasets and across the metrics. </p>
+            	</div>
+          	</div>
+			<p>B. Ablation Study</p>
+            <div class="box m-5">
+            	<div class="content has-text-centered">
+              		<img src="static/images/table2.jpg" alt="algebraic reasoning" width="60%"/>
+					<img src="static/images/table3.jpg" alt="algebraic reasoning" width="60%"/>
+					<img src="static/images/tablept.jpg" alt="algebraic reasoning" width="60%"/>
+					<img src="static/images/table4.jpg" alt="algebraic reasoning" width="60%"/>
+              		<p> The ablation study results reveal that each of the key design decisions contributes noticeably to the performance of LLMDA. In particular, without the PT-Former module LLMDA would lose about 8 percentage points in F1</p>
+            	</div>
+          	</div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Main Experimental Results</h2>
+        <div class="content has-text-justified">
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="box m-5">
+            	<div class="content has-text-centered">
+              		<img src="static/images/table1.jpg" alt="algebraic reasoning" width="60%"/>
+					<p>A. Overall Performance</p>
+              		<p> <strong>LLMDA</strong> is effective in detecting security patches.With an F1 score at 78.19%, LLMDA demonstrates a well-balanced performance: our model can concurrently attain high precision and high recall. Specifically, we achieved a new state-of-the-art performance in identifying both security patches (+Recall) and recognizing non-security patches (-Recall). Comparison experiments further confirm that <strong>LLMDA</strong> is superior to the baselines and is consistently high-performing across the datasets and across the metrics. </p>
+            	</div>
+          	</div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+</section>
 
 <!--
  @PAN TODO: bibtex 
