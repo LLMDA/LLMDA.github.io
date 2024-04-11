@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CodeAgent</title>
+  <title>LLMDA</title>
     <style>
         .hidden {
             display: none;
@@ -12,11 +12,11 @@
   <meta charset="utf-8">
   <meta name="description"
         content="Autonomous Communicative Code Agents for Code Review">
-  <meta name="keywords" content="CodeAgent, Code Language Model, Large Language Model, Large Multimodal Model, artificial intelligence, AI, AGI, artificial general intelligence">
+  <meta name="keywords" content="LLMDA, data augumentation, security, artificial intelligence, AI, AGI, artificial general intelligence">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Autonomous Communicative Code Agents for Code Review</title>
+  <title> Just-in-Time Detection of Silent Security Patches</title>
 
-  <link rel="icon" href="./static/images/codeagent-icon.png">
+  <link rel="icon" href="./static/images/llmda.png">
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
@@ -298,27 +298,64 @@
               		<p> The ablation study results reveal that each of the key design decisions contributes noticeably to the performance of LLMDA. In particular, without the PT-Former module LLMDA would lose about 8 percentage points in F1</p>
             	</div>
           	</div>
-          </div>
-        </div>
-      </div>
-    </div>
-   </div>
-</section>
-
-
-<section class="section">
-  <div class="container">
-    <div class="columns is-centered has-text-centered">
-      <!-- <div class="column is-full-width has-text-centered"> -->
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Main Experimental Results</h2>
-        <div class="content has-text-justified">
-          <div id="results-carousel" class="carousel results-carousel">
+			<p>C. Visualizations</p>
             <div class="box m-5">
             	<div class="content has-text-centered">
-              		<img src="static/images/table1.jpg" alt="algebraic reasoning" width="60%"/>
-					<p>A. Overall Performance</p>
-              		<p> <strong>LLMDA</strong> is effective in detecting security patches.With an F1 score at 78.19%, LLMDA demonstrates a well-balanced performance: our model can concurrently attain high precision and high recall. Specifically, we achieved a new state-of-the-art performance in identifying both security patches (+Recall) and recognizing non-security patches (-Recall). Comparison experiments further confirm that <strong>LLMDA</strong> is superior to the baselines and is consistently high-performing across the datasets and across the metrics. </p>
+              		<img src="static/images/visualization.jpg" alt="algebraic reasoning" width="60%"/>
+              		<p> We consider 1 000
+random patches from our PatchDB dataset. We then collect
+their associated embeddings from LLMDA and GraphSPD and
+apply principal component analysis (PCA) [30]. Given the
+imbalance of the dataset, the drawn samples are largely non-
+security patches, while security patches are fewer. Figure 5
+presents the PCA visualizations of the representations. We observe from the distribution of data points that LLMDA
+can effectively separate the two categories (i.e., security and
+non-security patches), in contrast to the incumbent state-of-
+the-art, GraphSPD. This finding suggests that the representa-
+tions of LLMDA are highly relevant for the task of security
+patch detection.</p>
+            	</div>
+          	</div>
+			<p>D. Case Study</p>
+            <div class="box m-5">
+            	<div class="content has-text-centered">
+              		<img src="static/images/casestudy.jpg" alt="algebraic reasoning" width="100%"/>
+              		<p> Table VI presents 2 examples to illustrate
+the difference between LLMDA and GraphSPD in terms of
+what the representations can capture, and potentially explaining why LLMDA was successful on these cases while
+GraphSPD was not. For our classification task, we have two
+labels: security (0) and non-security (1). For LLMDA, we can
+directly consider the label name in the instruction. Thus we
+compute the attention map between security and the tokens in
+the patch, the explanation, and the description. For GraphSPD,
+however, since there no real label name involved in the training
+and inference phases, we compute the attention score between
+the words in the patch and the number “0” or “1”. To simplify
+the analysis, we only highlight, in Table VI, tokens for which
+the similarity score is higher than 0.5. As shown in the examples, LLMDA generally assigns high
+similarity scores to security-related aspects, suggesting a detection capability that nuances between tokens. For example,
+in the sgminer.c patch, LLMDA gives high scores to realloc
+and mutex init, indicating a finer sensitivity to potential security implications within these code parts. Similarly, in the
+krb5/auth context.c patch, the use of memset for initializing
+authenticator memory is scored high in LLMDA, reflecting its
+more acute recognition of security practices.</p>
+            	</div>
+          	</div>
+			  <p>E. Detailed Cases with Attention Map (More lighter mean more matching)</p>
+            <div class="box m-5">
+            	<div class="content has-text-centered">
+              		<img src="static/images/case1.jpg" alt="algebraic reasoning" width="100%"/>
+					<img src="static/images/case2.jpg" alt="algebraic reasoning" width="100%"/>
+					<img src="static/images/case3.jpg" alt="algebraic reasoning" width="100%"/>
+					<img src="static/images/case4.jpg" alt="algebraic reasoning" width="100%"/>
+					<img src="static/images/case5.jpg" alt="algebraic reasoning" width="100%"/>
+					<img src="static/images/case6.jpg" alt="algebraic reasoning" width="100%"/>
+					<img src="static/images/case7.jpg" alt="algebraic reasoning" width="100%"/>
+					<img src="static/images/case8.jpg" alt="algebraic reasoning" width="100%"/>
+					<img src="static/images/case9.jpg" alt="algebraic reasoning" width="100%"/>
+					<img src="static/images/case10.jpg" alt="algebraic reasoning" width="100%"/>
+					<img src="static/images/case11.jpg" alt="algebraic reasoning" width="100%"/>
+              		
             	</div>
           	</div>
           </div>
@@ -327,6 +364,9 @@
     </div>
    </div>
 </section>
+
+
+
 
 <!--
  @PAN TODO: bibtex 
