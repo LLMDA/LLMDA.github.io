@@ -1,4 +1,5 @@
-# SeeAct
+# LLMDA
+The code is available at https://zenodo.org/records/11533461
 
 This is the website template for LLMDA.
 
