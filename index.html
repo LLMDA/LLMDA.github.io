@@ -154,8 +154,29 @@
   </div>
 </section>
 
+	.container.is-max-desktop {
+    max-width: 1200px; /* Adjust this value as needed */
+    margin: auto; /* Center the container */
+}
 
 <section class="hero is-light is-small">
+  <div class="container is-max-desktop"> <!-- Use a container class with a maximum width -->
+    <div class="hero-body has-text-centered">
+      <h1 class="title is-1 mmmu">
+        <img src="static/images/llmda.png" style="width:1em; vertical-align: middle" alt="Logo"/>
+        <span class="mmmu" style="vertical-align: middle">LLMDA Method</span>
+      </h1>
+    </div>
+    <div class="content has-text-justified">
+      <p>
+        Figure 1 depicts the overview of the different steps of LLMDA. First, representations of multi-modal inputs (code and texts) are obtained using LLMs. Then, the obtained representations are aligned within a unique embedding space and fused into a single comprehensive representation by the <strong>PT-Former</strong> module. Finally, a stochastic batch contrastive learning (<strong>SBCL</strong>) mechanism is deployed to make the predictions of whether a given patch is a security patch or not.
+      </p>
+    </div>
+  </div>
+</section>
+
+	
+<!-- <section class="hero is-light is-small">
   <div class="hero-body has-text-centered">
   <h1 class="title is-1 mmmu">
     <img src="static/images/llmda.png" style="width:1em;vertical-align: middle" alt="Logo"/>
@@ -168,7 +189,7 @@
       </p>
   </div>
 	
-</section>
+</section> -->
 
  <div class="content has-text-justified">
           
